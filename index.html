@@ -9,6 +9,7 @@
             --meter-color: hsl(0, 80%, 50%);
             --bg-color: #121212;
             --text-color: #f0f0f0;
+            --box-bg: rgba(255, 255, 255, 0.05);
         }
 
         * {
@@ -24,10 +25,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
-            text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             transition: background-color 0.5s ease;
         }
 
@@ -37,30 +36,92 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+            gap: 25px;
         }
 
         h1 {
             font-size: 1.8rem;
             color: #ffffff;
-            margin-bottom: 10px;
+            text-align: center;
+            margin-bottom: 5px;
         }
 
-        p.message {
+        .message-box {
             font-size: 1.1rem;
             line-height: 1.6;
             color: #cccccc;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--box-bg);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-align: center;
         }
 
+        .instructions {
+            font-size: 1rem;
+            color: #aaa;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* --- SECCIÓN DE MENSAJES (INPUT) --- */
+        .input-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: var(--box-bg);
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .input-section h3 {
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: left;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #444;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            resize: vertical;
+            font-size: 1rem;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #888;
+        }
+
+        .btn-normal {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            align-self: flex-end;
+            font-weight: bold;
+        }
+
+        .btn-normal:hover { background: #555; }
+
+        /* --- MEDIDOR --- */
         .meter-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
+            background: var(--box-bg);
+            padding: 30px 20px;
+            border-radius: 15px;
             gap: 15px;
         }
 
@@ -79,31 +140,78 @@
 
         input[type=range] {
             -webkit-appearance: none;
-            width: 80%;
+            width: 90%;
             background: transparent;
+            margin: 15px 0;
         }
 
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            height: 30px;
-            width: 30px;
+            height: 35px;
+            width: 35px;
             border-radius: 50%;
             background: #fff;
             cursor: pointer;
-            margin-top: -10px;
-            box-shadow: 0 0 10px rgba(255,255,255,0.5);
-            border: 3px solid var(--meter-color);
+            margin-top: -12px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.4);
+            border: 4px solid var(--meter-color);
             transition: border-color 0.3s ease;
         }
 
         input[type=range]::-webkit-slider-runnable-track {
             width: 100%;
-            height: 10px;
+            height: 12px;
             cursor: pointer;
             background: linear-gradient(to right, #00c853, #ffd600, #ff1744);
-            border-radius: 5px;
+            border-radius: 6px;
         }
 
+        .btn-save {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn-save:hover { background: #45a049; }
+
+        /* --- LISTA DE MENSAJES --- */
+        .messages-list-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .msg-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #888;
+            text-align: left;
+        }
+
+        .msg-date {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .msg-text {
+            font-size: 1rem;
+            line-height: 1.4;
+            white-space: pre-wrap; /* Respeta los saltos de línea del textarea */
+        }
+
+        /* --- BOTÓN DE PELIGRO --- */
         .danger-btn {
             background-color: transparent;
             color: #ff1744;
@@ -113,11 +221,13 @@
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 30px;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
+            width: 100%;
         }
 
         .danger-btn:hover {
@@ -126,10 +236,11 @@
             box-shadow: 0 0 20px rgba(255, 23, 68, 0.6);
         }
 
+        /* --- MODALES Y DESPEDIDA --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             display: none;
             justify-content: center;
             align-items: center;
@@ -154,12 +265,8 @@
             justify-content: space-around;
         }
 
-        .btn-cancel {
-            background: #555; border: none; padding: 10px 20px; color: white; border-radius: 5px; cursor: pointer;
-        }
-        .btn-confirm {
-            background: #ff1744; border: none; padding: 10px 20px; color: white; border-radius: 5px; cursor: pointer; font-weight: bold;
-        }
+        .btn-cancel { background: #555; border: none; padding: 10px 20px; color: white; border-radius: 5px; cursor: pointer; }
+        .btn-confirm { background: #ff1744; border: none; padding: 10px 20px; color: white; border-radius: 5px; cursor: pointer; font-weight: bold; }
 
         #goodbye-screen {
             display: none;
@@ -167,6 +274,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            text-align: center;
             padding: 20px;
         }
 
@@ -184,19 +292,34 @@
     <div id="main-screen">
         <h1>Medidor para saber si Luz está lista para hablar las cosas</h1>
         
-        <p class="message">
+        <div class="message-box">
             Mira, fui tonto, inmaduro, y un bebé tutti frutti, y lo siento, pero dame una oportunidad ok? Solo una más.<br><br>
             Cada noche revisaré este medidor, y sabré qué tan molesta/decepcionada sigues conmigo.<br>
             Cuando baje a 0, sabré que pasó el tiempo suficiente y podemos hablar sobre nuestra situación.<br><br>
-            Si antes de que eso pase, decides que realmente ya no quieres volver a intentarlo (cosa que entenderé) simplemente aprieta el botón de abajo.
+            Si antes de que eso pase, decides que realmente ya no quieres volver a intentarlo (cosa que entenderé) simplemente aprieta el botón del final.
             Debes estar segura de tu decisión, porque de ese botón no hay vuelta atrás. Que estés bien Luz, te quiero.
+        </div>
+
+        <p class="instructions">
+            Si quieres, puedes poner algún comentario sobre tu día, y enviarlo, todos tus comentarios aparecerán al final.<br><br>
+            Para que funcione el medidor, mueve el círculo blanco de izquierda a derecha, y luego dale a Guardar estado.
         </p>
+
+        <div class="input-section">
+            <h3>Espacio para mensajes</h3>
+            <textarea id="msg-input" placeholder="Escribe tu mensaje aquí..."></textarea>
+            <button class="btn-normal" id="btn-send-msg">Enviar</button>
+        </div>
 
         <div class="meter-container">
             <div class="emoji-display" id="emoji">😡</div>
             <div class="percentage" id="percentage-text">100%</div>
             <input type="range" id="meter-slider" min="0" max="100" value="100" dir="rtl">
+            <button class="btn-save" id="btn-save-meter">Guardar estado</button>
         </div>
+
+        <div class="messages-list-container" id="messages-list">
+            </div>
 
         <button class="danger-btn" id="btn-danger">
             ⚠️ TERMINAR ESTO
@@ -219,15 +342,13 @@
     </div>
 
     <script type="module">
+        // Importamos también "push" para agregar elementos a una lista
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getDatabase, ref, onValue, set, push } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        // Configuración oficial conectada a tu proyecto
         const firebaseConfig = {
             apiKey: "AIzaSyBONx8gKlB3jKHqw3GMqVBIwAzYOqhhONU",
             authDomain: "medidordecepcion.firebaseapp.com",
-            // IMPORTANTE: He agregado la base de datos a mano. Si por alguna razón no conecta, 
-            // revisa en Firebase (pestaña Realtime Database) si esta URL cambia ligeramente.
             databaseURL: "https://medidordecepcion-default-rtdb.firebaseio.com",
             projectId: "medidordecepcion",
             storageBucket: "medidordecepcion.firebasestorage.app",
@@ -236,15 +357,23 @@
             measurementId: "G-XMNCNBH262"
         };
 
-        // Inicializar Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-        const dbRef = ref(db, 'luzStatus');
+        
+        // Referencias a la base de datos
+        const statusRef = ref(db, 'luzStatus');
+        const messagesRef = ref(db, 'luzMessages');
 
-        // Elementos del DOM
+        // Elementos DOM
         const slider = document.getElementById('meter-slider');
         const percentageText = document.getElementById('percentage-text');
         const emoji = document.getElementById('emoji');
+        const btnSaveMeter = document.getElementById('btn-save-meter');
+        
+        const msgInput = document.getElementById('msg-input');
+        const btnSendMsg = document.getElementById('btn-send-msg');
+        const messagesList = document.getElementById('messages-list');
+        
         const mainScreen = document.getElementById('main-screen');
         const goodbyeScreen = document.getElementById('goodbye-screen');
         const btnDanger = document.getElementById('btn-danger');
@@ -252,10 +381,9 @@
         const btnCancel = document.getElementById('btn-cancel');
         const btnConfirm = document.getElementById('btn-confirm');
 
-        // Función para actualizar colores y emojis
+        // Función visual del medidor
         function updateUI(value) {
             percentageText.innerText = value + '%';
-            
             const hue = 120 - (value * 1.2);
             document.documentElement.style.setProperty('--meter-color', `hsl(${hue}, 80%, 50%)`);
 
@@ -266,8 +394,8 @@
             else emoji.innerText = '😊';
         }
 
-        // Escuchar datos en tiempo real
-        onValue(dbRef, (snapshot) => {
+        // 1. Escuchar Estado General (Medidor y si terminó)
+        onValue(statusRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
                 if (data.isOver) {
@@ -275,32 +403,87 @@
                     modal.style.display = 'none';
                     goodbyeScreen.style.display = 'flex';
                 } else {
+                    // Solo actualizamos el slider si no lo estamos tocando en este instante
                     slider.value = data.level;
                     updateUI(data.level);
                 }
             } else {
-                set(dbRef, { level: 100, isOver: false });
+                set(statusRef, { level: 100, isOver: false });
             }
         });
 
-        // Al mover el slider
+        // Solo actualiza visualmente al deslizar
         slider.addEventListener('input', (e) => {
-            const newValue = e.target.value;
-            updateUI(newValue);
-            set(dbRef, { level: parseInt(newValue), isOver: false });
+            updateUI(e.target.value);
         });
 
-        // Botones del Modal
-        btnDanger.addEventListener('click', () => {
-            modal.style.display = 'flex';
+        // Guarda en Firebase solo al presionar el botón "Guardar estado"
+        btnSaveMeter.addEventListener('click', () => {
+            set(statusRef, { level: parseInt(slider.value), isOver: false });
+            
+            // Efecto visual de guardado exitoso
+            const originalText = btnSaveMeter.innerText;
+            btnSaveMeter.innerText = "¡Guardado!";
+            btnSaveMeter.style.background = "#2e7d32";
+            setTimeout(() => {
+                btnSaveMeter.innerText = originalText;
+                btnSaveMeter.style.background = "#4caf50";
+            }, 2000);
         });
 
-        btnCancel.addEventListener('click', () => {
-            modal.style.display = 'none';
+        // 2. Enviar Mensajes a Firebase
+        btnSendMsg.addEventListener('click', () => {
+            const texto = msgInput.value.trim();
+            if (texto !== "") {
+                // Obtener fecha y hora local
+                const opcionesFecha = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                const fechaActual = new Date().toLocaleDateString('es-ES', opcionesFecha);
+                
+                // Subir a Firebase (push genera un ID único automático)
+                push(messagesRef, {
+                    texto: texto,
+                    fecha: fechaActual
+                });
+                
+                msgInput.value = ""; // Limpiar textarea
+                
+                // Efecto visual de enviado
+                btnSendMsg.innerText = "¡Enviado!";
+                setTimeout(() => { btnSendMsg.innerText = "Enviar"; }, 2000);
+            }
         });
 
+        // 3. Escuchar y Mostrar la Lista de Mensajes
+        onValue(messagesRef, (snapshot) => {
+            messagesList.innerHTML = ''; // Limpiar lista
+            snapshot.forEach((childSnapshot) => {
+                const mensaje = childSnapshot.val();
+                
+                const divItem = document.createElement('div');
+                divItem.className = 'msg-item';
+                
+                const spanDate = document.createElement('span');
+                spanDate.className = 'msg-date';
+                spanDate.innerText = mensaje.fecha;
+                
+                const pText = document.createElement('div');
+                pText.className = 'msg-text';
+                pText.innerText = mensaje.texto;
+                
+                divItem.appendChild(spanDate);
+                divItem.appendChild(pText);
+                
+                // Insertar al principio para que los más nuevos salgan arriba, 
+                // o usar appendChild si quieres que salgan abajo.
+                messagesList.prepend(divItem); 
+            });
+        });
+
+        // 4. Lógica de terminar todo
+        btnDanger.addEventListener('click', () => { modal.style.display = 'flex'; });
+        btnCancel.addEventListener('click', () => { modal.style.display = 'none'; });
         btnConfirm.addEventListener('click', () => {
-            set(dbRef, { level: slider.value, isOver: true });
+            set(statusRef, { level: slider.value, isOver: true });
         });
     </script>
 </body>
